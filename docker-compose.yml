@@ -1,0 +1,56 @@
+version: '2'
+networks:
+    lnmp5:
+services:
+    php5:
+        build: php5
+        networks: 
+            - lnmp5
+        depends_on:
+            - db
+            - memcached
+            - redis
+        links:
+            - "db"
+            - "memcached"
+            - "redis"
+        ports: 
+            - "9000:9000"
+        volumes:
+            - ./www:/var/www/html
+    nginx:
+        build: nginx
+        networks:
+            - lnmp5
+        depends_on:
+            - php5
+        ports:
+            - "80:80"
+        volumes_from:
+            - php5
+        volumes:
+            - ./nginx/config:/etc/nginx/conf.d
+    db:
+        image: "mysql:5.7.15"
+        networks:
+            - lnmp5
+        environment:
+            MYSQL_ROOT_PASSWORD: mysqlroot
+            MYSQL_USER: lxiao
+            MYSQL_PASSWORD: 123456
+        volumes:
+            - ./db:/var/lib/mysql
+        ports:
+            - "3306:3306"
+    redis:
+        image: "redis:3.2"
+        networks:
+            - lnmp5
+        ports:
+            - "6379:6379"
+    memcached:
+        image: "memcached:1.5"
+        networks:
+            - lnmp5
+        ports:
+            - "11211:11211"
