@@ -15,3 +15,6 @@ Run pecl install memcache-3.0.8 \
 
 Run pecl install mongo-1.6.16 \
 	&& docker-php-ext-enable mongo
+Run pecl install swoole \
+	&& docker-php-ext-enable swoole
+
