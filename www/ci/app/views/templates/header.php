@@ -1,10 +1,8 @@
-<html>
+<html lang="zh_CN">
     <head>
+        <meta charset="utf-8" />
         <title>
             CodeIgniter 训练
         </title>
     </head>
     <body>
-        <h1>
-            <?php echo $title;?>
-        </h1>

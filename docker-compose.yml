@@ -17,7 +17,7 @@ services:
         ports: 
             - "9000:9000"
         volumes:
-            - ./www:/var/www/html
+            - ./www/ci:/var/www/html
     nginx:
         build: nginx
         networks:
