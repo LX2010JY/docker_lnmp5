@@ -14,10 +14,39 @@ class Auth extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->model('auth_model');
     }
-
-
+	/**
+	 * 用户登录界面
+     * 用户登录以后，session返回一个session id存入cookie中，而登录信息等存在了服务端session文件中，每次用户访问，通过cookie传过来的session id，
+     * 去查找session文件，并获取用户相关信息，这样就知道登录用户是谁了
+     * TODO session保存时间短，如果用户信息保存在服务端，那么如何做到记住登录状态，几个月保持登录状态呢？
+	 */
+	public  function login() {
+		$data = array('error' => '', 'userdata' => array());
+		if($_POST) {
+			$this->form_validation->set_rules('email', 'email', 'required');
+            $this->form_validation->set_rules('passwd', 'passwd', 'required');
+            if($this->form_validation->run() === false) {
+                $data['error'] = '请完善登录信息';
+            } else {
+                if($this->auth_model->login()) {
+                    $data['error'] = '登录成功';
+                } else {
+                    $data['error'] = '账号或者密码错误';
+                }
+            }
+		}
+		if($this->session->userdata['email']) {
+            $data['userdata'] = $this->session->userdata;
+        }
+		$this->load->view('templates/header');
+		$this->load->view('auth/login', $data);
+		$this->load->view('templates/footer');
+	}
+	/**
+ 	 * 用户注册界面
+	 */
     public function register() {
-        $data = ['error'=> ''];
+        $data = array('error'=> '');
         if($_POST) {
             $this->form_validation->set_rules('email', 'email', 'required');
             $this->form_validation->set_rules('passwd', 'passwd', 'required');

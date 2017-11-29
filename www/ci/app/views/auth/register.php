@@ -1,5 +1,5 @@
 <style>
-    .pad150{padding: 150px 0};
+    .pad150{padding: 150px 0}
     .red{color: red}
     .font14{font-size: 14px;line-height: 30px;}
 </style>

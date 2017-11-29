@@ -21,13 +21,32 @@ class Auth_model extends CI_Model {
         return false;
     }
 
+    /**
+     * 注册用户
+     * @return mixed
+     */
     public function regist_user() {
         $this->load->helper('url');
-        $data = [
+        $data = array(
             'email' => $this->input->post('email'),
             'passwd_mw' => $this->input->post('passwd'),
             'passwd_hash' => md5($this->input->post('passwd'))
-        ];
+        );
         return $this->db->insert('user', $data);
+    }
+
+    /**
+     * 登录
+     * @return bool
+     */
+    public function login() {
+        $query = $this->db->get_where('user', array('email'=> $this->input->post('email'), 'passwd_hash'=> md5($this->input->post('passwd'))));
+        $r = $query->row_array();
+        if($r) {
+            $_SESSION = array_merge($_SESSION, $r);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
