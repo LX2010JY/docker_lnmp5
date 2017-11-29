@@ -13,6 +13,9 @@ class Test extends CI_Controller {
         $this->load->library('example_library');
         //引用通用函数库的方法 位置在 application/helper 或者 system/helper
         $this->load->helper('example');
+        $this->load->helper(array('form', 'url'));
+        //加载session
+        $this->load->library('session');
     }
 
     /**
@@ -48,6 +51,7 @@ class Test extends CI_Controller {
      * TODO 重点学习内容
      */
     public function cache() {
+        //redis 连接配置在application/config/redis.php
         $this->load->driver('cache', array('adapter' => 'redis', 'backup' => 'file'));
         if(!$foo = $this->cache->get('foo')) {
             echo 'Saving to the Cache!<br>';
@@ -61,6 +65,9 @@ class Test extends CI_Controller {
      * 使用memcached缓存
      */
     public function cache2() {
+        /**
+         * memcached连接配置在 application/config/memcached.php
+         */
         $this->load->driver('cache');
         if( !$foo = $this->cache->memcached->get('foo') ) {
             echo 'Saving to the memcached cache!<br>';
@@ -69,14 +76,68 @@ class Test extends CI_Controller {
         }
         echo $foo;
     }
+
+    /**
+     * 日历类 不知道有什么用
+     */
     public function calendar() {
         $this->load->library('calendar');
         echo $this->calendar->generate();
+    }
+
+    /**
+     * 加密算法，目前缺少php扩展，不能用
+     * @param $word
+     */
+    public function encrypt($word) {
+        $this->load->library('encrypt');
+        echo "your word is :" . $word;
+        $word = $this->encrypt->encode($word);
+        echo '<br>this is encrypt word:' . $word;
+        echo $this->encrypt->decode($word);
+    }
+
+    /**
+     * 通用静态页面
+     */
+    public function pages() {
+        $this->load->view('templates/header');
+        $this->load->view('test/pages', array('error'=> ' '));
+        $this->load->view('templates/footer');
+    }
+
+    /**
+     * 上传文件
+     * TODO
+     */
+    public function do_upload() {
+        $config['upload_path'] = './upload/';
+        $config['allowed_types'] = 'gif|jpg|png|mp3';
+        $config['max_size'] = 100;
+        $config['max_width'] = 1024;
+        $config['max_height'] = 768;
+
+        $this->load->library('upload', $config);
+        if(!$this->upload->do_upload('userfile')) {
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('test/pages', $error);
+        } else {
+            $data = array('upload_data' => $this->upload->data());
+            var_dump($data);
+            $this->load->view('test/pages', array('error' => '成功了'));
+        }
+    }
+
+    /**
+     * session测试
+     * TODO very important
+     */
+    public function session2() {
+        var_dump($this->session);
     }
     /**
      * 定义挂钩点执行方法
      */
     public function hooks($param) {
-        echo 'this is a hook '. $param;
     }
 }
