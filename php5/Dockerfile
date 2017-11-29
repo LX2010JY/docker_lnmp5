@@ -1,5 +1,6 @@
 FROM php:5.6-fpm
 MAINTAINER lxiao
+COPY config/php.ini /usr/local/etc/php/
 
 RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libssl-dev \
   && rm -rf /var/lib/apt/lists/* \

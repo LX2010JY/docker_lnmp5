@@ -10,7 +10,7 @@ class News extends CI_Controller {
         parent::__construct();
         $this->load->model("news_model");
         $this->load->helper("url_helper");
-        $this->output->enable_profiler(TRUE);
+//        $this->output->enable_profiler(TRUE);
 
     }
     //url调用方法重新映射，一旦创建了_remap方法，所有访问News的url都会访问这个方法

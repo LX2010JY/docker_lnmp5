@@ -30,6 +30,50 @@ class Test extends CI_Controller {
     }
 
     /**
+     * 基准测试
+     * http://codeigniter.org.cn/user_guide/libraries/benchmark.html
+     * TODO 不懂怎么办到的，好奇内容
+     */
+    public function jizhun_ceshi() {
+        //这个方法不能在控制器使用，只能在视图层使用
+        //显示从运行开始到结束花费时间
+//        echo $this->benchmark->elapsed_time();
+        //显示内存占用
+//        echo $this->benchmark->memory_usage();
+        $this->load->view('test/ceshi');
+    }
+
+    /**
+     * 缓存驱动
+     * TODO 重点学习内容
+     */
+    public function cache() {
+        $this->load->driver('cache', array('adapter' => 'redis', 'backup' => 'file'));
+        if(!$foo = $this->cache->get('foo')) {
+            echo 'Saving to the Cache!<br>';
+            $foo = 'foobarbaz!';
+            $this->cache->save('foo', $foo, 300);
+        }
+        echo $foo;
+    }
+
+    /**
+     * 使用memcached缓存
+     */
+    public function cache2() {
+        $this->load->driver('cache');
+        if( !$foo = $this->cache->memcached->get('foo') ) {
+            echo 'Saving to the memcached cache!<br>';
+            $foo = 'foomem';
+            $this->cache->memcached->save('foo', $foo, 300);
+        }
+        echo $foo;
+    }
+    public function calendar() {
+        $this->load->library('calendar');
+        echo $this->calendar->generate();
+    }
+    /**
      * 定义挂钩点执行方法
      */
     public function hooks($param) {
