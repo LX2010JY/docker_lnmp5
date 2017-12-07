@@ -8,8 +8,8 @@
 class Auth extends CI_Controller {
     public function __construct() {
         parent::__construct();
-        //session初始化暂时放在这儿吧
-        $this->load->library('session');
+//        //session初始化暂时放在这儿吧,已移至 config/autoload.php
+//        $this->load->library('session');
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->load->model('auth_model');
@@ -35,9 +35,18 @@ class Auth extends CI_Controller {
                 }
             }
 		}
-		if($this->session->userdata['email']) {
+		if(!empty($_SESSION)) {
             $data['userdata'] = $this->session->userdata;
         }
+        //设置一次session
+        $this->session->set_flashdata('hello', 'nihao');
+        //设置定时session
+        $this->session->set_tempdata('hi', '300', 60);
+        var_dump(session_id());
+        //销毁session
+//        session_destroy();
+
+        $data['userdata'] = $_SESSION;
 		$this->load->view('templates/header');
 		$this->load->view('auth/login', $data);
 		$this->load->view('templates/footer');

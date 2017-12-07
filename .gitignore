@@ -3,3 +3,4 @@ db/*
 .idea/
 www/ci/app/config/config.php
 www/ci/app/config/config.php
+www/ci/vendor/*
