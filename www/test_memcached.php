@@ -10,6 +10,6 @@ $link = $mem->connect("memcached","11211");
 if(!$link) {
     exit("connect memcached failed.");
 }
-$mem->set("name","冯佳雨",0,5201314);
+$mem->set("name","lxiao",0,5201314);
 echo $mem->get("name");
 
