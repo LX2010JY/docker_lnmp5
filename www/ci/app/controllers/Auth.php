@@ -21,7 +21,7 @@ class Auth extends CI_Controller {
      * TODO session保存时间短，如果用户信息保存在服务端，那么如何做到记住登录状态，几个月保持登录状态呢？
 	 */
 	public  function login() {
-		$data = array('error' => '', 'userdata' => array());
+		$data = array('error' => '');
 		if($_POST) {
 			$this->form_validation->set_rules('email', 'email', 'required');
             $this->form_validation->set_rules('passwd', 'passwd', 'required');
@@ -30,23 +30,12 @@ class Auth extends CI_Controller {
             } else {
                 if($this->auth_model->login()) {
                     $data['error'] = '登录成功';
+                    redirect('index/index');
                 } else {
                     $data['error'] = '账号或者密码错误';
                 }
             }
 		}
-		if(!empty($_SESSION)) {
-            $data['userdata'] = $this->session->userdata;
-        }
-        //设置一次session
-        $this->session->set_flashdata('hello', 'nihao');
-        //设置定时session
-        $this->session->set_tempdata('hi', '300', 60);
-        var_dump(session_id());
-        //销毁session
-//        session_destroy();
-
-        $data['userdata'] = $_SESSION;
 		$this->load->view('templates/header');
 		$this->load->view('auth/login', $data);
 		$this->load->view('templates/footer');
@@ -67,11 +56,20 @@ class Auth extends CI_Controller {
                 } else {
                     $this->auth_model->regist_user();
                     $data['error'] = '注册成功';
+                    redirect('auth/login', $data);
                 }
             }
         }
         $this->load->view('templates/header');
         $this->load->view("auth/register", $data);
         $this->load->view('templates/footer');
+    }
+
+    /**
+     * 用户登出
+     */
+    public function logout() {
+        session_destroy();
+        redirect('index/index');
     }
 }
