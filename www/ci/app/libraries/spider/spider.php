@@ -6,6 +6,7 @@
  * Description :
  */
 interface spider {
+    public function __construct($url);
     /**
      * 获取页面基本信息
      * @param $url
@@ -56,17 +57,23 @@ interface spider {
     public function get_chapter();
 
     /**
+     * 写入文件
+     * @param $file
+     * @return mixed
+     */
+    public function write_file($file);
+    /**
      * 下载章节
      * @return mixed
      */
-    public function download_chapter();
+    public function download_chapter($chaplist);
 
     /**
      * 下载单个章节
      * @param $url
      * @return mixed
      */
-    public function download_single_chapter($url);
+    public function download_single_chapter($url, $title);
 
     /**
      * 先存在redis，如果没下载完就出错了，则丢弃掉，然后存入数据库
