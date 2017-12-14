@@ -12,9 +12,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $hook['pre_controller'] = array(
-    'class' => 'Test',
-    'function' => 'hooks',
-    'filename' => 'Test.php',
-    'filepath' => 'controlers',
-    'params'   => 'test'
+    'class' => 'TestHook',
+    'function' => 'printf',
+    'filename' => 'TestHook.php',
+    'filepath' => 'hook',
+    'params'   => ''
 );

@@ -1,0 +1,7 @@
+
+/*滚动部分*/
+.scroll{height: 200px;border: 1px solid #666;margin: 30px 15px}
+
+/*分类部分*/
+.category{border: 1px solid #333;min-height: 400px;margin: 10px 0}
+.bottom-part{padding: 50px 0;border-top:1px solid #4F5155}

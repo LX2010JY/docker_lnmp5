@@ -1,0 +1,10 @@
+.header{width:100%;line-height: 50px;padding:10px 50px;box-shadow: 0 3px 5px 2px #999;background-color: #2e8ece;overflow: hidden;cursor: pointer;position: fixed;top:0;left: 0;z-index: 10000;user-select: none}
+.left{float: left;font-size: 30px; color:#FFF;font-family: Monaco, Courier New, Courier, monospace, "Microsoft Sans Serif";font-weight: bolder}
+.right{float: right;font-size: 14px;color:#FFF;}
+.placeholder{height: 70px;}
+.header a{color:#EFEFEF !important;}
+
+/*搜索条*/
+.top-bar{margin: 25px 0;padding: 10px 0;line-height: 35px;border: 1px solid #EFEFEF;border-radius: 5px;}
+.top-bar .most-catgory{list-style-type: none;padding-left: 0;margin-left: 0;overflow: hidden;margin-bottom: 0;}
+.top-bar .most-catgory .citem{float: left;padding: 0 20px;cursor: pointer}
