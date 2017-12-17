@@ -1,0 +1,8 @@
+.novel-item{padding: 20px 5px;}
+.novel-item .cover{width: 150px;height: 200px;cursor: pointer}
+.novel-item .title{font-size: 25px;cursor: pointer}
+.novel-item .author{font-size: 13px;color:#999}
+.novel-item .desc{color: #666;font-size: 14px;cursor: pointer}
+.no_res{margin: 20px 5px;font-size: 16px;}
+
+

@@ -37,6 +37,7 @@ class Auth extends CI_Controller {
             }
 		}
 		$this->load->view('templates/header');
+		$this->load->view('templates/navbar');
 		$this->load->view('auth/login', $data);
 		$this->load->view('templates/footer');
 	}
@@ -61,6 +62,7 @@ class Auth extends CI_Controller {
             }
         }
         $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
         $this->load->view("auth/register", $data);
         $this->load->view('templates/footer');
     }

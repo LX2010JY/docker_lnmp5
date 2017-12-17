@@ -4,8 +4,8 @@
     .font14{font-size: 14px;line-height:30px}
     .flag{text-align: center;line-height: 40px;font-weight: bolder;font-size: 25px;}
     .bggray{opacity: 0.5;background-color: #4F5155;height: 100%;color:#FFF;}
-    .right{line-height: 25px;font-size: 12px;c,olor:#666;text-align: right}
-    .right a{color: #FFF !important;}
+    .bggray .right{line-height: 25px;font-size: 12px;c,olor:#666;text-align: right}
+    .bggray .right a{color: #FFF !important;}
 </style>
 <div class="container-fluid pad150 bggray">
     <div class="rows">

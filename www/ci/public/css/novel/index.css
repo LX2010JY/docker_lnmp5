@@ -1,0 +1,5 @@
+.main{height: 100%}
+.main .download-message{height: 500px;background-color: #000;color:#00CC00;line-height: 28px;overflow-x: auto;padding: 10px;}
+.main .novel-show{height: 500px;background-color: #FFF}
+.main .bottom{padding:20px;border:1px solid #EFEFEF}
+.main .bottom button{line-height: 34px;padding: 0 50px;float: right}

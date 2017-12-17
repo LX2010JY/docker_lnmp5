@@ -2,7 +2,7 @@
 <header class="header">
     <div class="title left">
 <!--        最小说-->
-        <div style="width: 200px;height: 50px;background-color: #eee"></div>
+        <div style="width: 200px;height: 50px;background-color: #eee" onclick="location.href = '<?=base_url();?>'"></div>
     </div>
     <div class="right">
         <?php if (!empty($user)):?>

@@ -26,6 +26,7 @@ services:
             - php5
         ports:
             - "8080:80"
+            - "9500:9500"
         volumes_from:
             - php5
         volumes:

@@ -10,6 +10,7 @@ class Index extends CI_Controller {
     public function __construct() {
         parent::__construct();
         @$this->data['user'] = $this->session->email;
+        $this->load->model('Novel_model');
     }
 
     /**
@@ -27,10 +28,13 @@ class Index extends CI_Controller {
      * @param bool $q 搜索关键字
      */
     public function search($q = FALSE) {
+        if($q !== false) $q = urldecode($q);
         $this->data['q'] = $q;
+        $data = $this->Novel_model->search_novel($q);
+        $this->data['list'] = $data;
         $this->load->view('templates/header');
         $this->load->view('templates/navbar', $this->data);
-        $this->load->view('index/search');
+        $this->load->view('index/search', $this->data);
         $this->load->view('templates/footer');
     }
 }
