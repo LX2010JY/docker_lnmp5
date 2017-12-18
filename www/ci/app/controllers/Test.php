@@ -5,6 +5,7 @@
  * CreateTime  : 2017/11/24 14:33
  * Description :
  */
+use Medoo\Medoo;
 class Test extends CI_Controller {
 
     public function __construct() {
@@ -18,6 +19,22 @@ class Test extends CI_Controller {
         $this->load->library('session');
     }
 
+    public function novel() {
+        require_once "vendor/autoload.php";
+        $db = new Medoo(array(
+            'database_type' => 'mysql',
+            'database_name' => 'news',
+            'server' => 'db',
+            'username' => 'root',
+            'password' => 'mysqlroot',
+            'charset' => 'utf8'
+        ));
+        $where = [
+            'title' => '雪鹰领主'
+        ];
+        $r = $db->select('novels',"nid" , $where);
+        var_dump($r);
+    }
     /**
      * 调用自定义函数
      */

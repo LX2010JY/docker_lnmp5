@@ -13,7 +13,7 @@ class NewBySpider{
     private $datalist;
     private $server;
     private $db;
-    public function __construct($url, $server, $frame) {
+    public function __construct($url, $server=null, $frame=null) {
         $this->url = $url;
         $this->server = $server;
         $this->frame = $frame;
@@ -63,6 +63,7 @@ class NewBySpider{
             'from'   => $this->url
         ));
         $this->datalist['nid'] = $nid;
+        $this->save_category();
     }
 
     /**
@@ -116,8 +117,8 @@ class NewBySpider{
      */
     private function save_novel($data) {
         if(!$this->datalist['nid']) return 0;
-//        $have_save = $this->db->check_have_save_data(array('title' => $data['title']), 'novel_chapter');
-//        if($have_save) return 0;
+        $have_save = $this->db->check_have_save_data(array('title' => $data['title']), 'novel_chapter');
+        if($have_save) return 0;
         $cp_id = $this->db->add_novel_chapter(array(
             'title' => $data['title'],
             'content' => $data['content'],
@@ -125,6 +126,15 @@ class NewBySpider{
             'nid'    => $this->datalist['nid']
         ));
         return $cp_id;
+    }
+
+    /**
+     * 检查小说类型是否存在，如果存在则写入表，若不存在则新建再写入
+     */
+    private function save_category() {
+        $category = $this->datalist['category'];
+        $nid = $this->datalist['nid'];
+        $this->db->save_category($category, $nid);
     }
     /**
      * 构建完整url
@@ -138,6 +148,25 @@ class NewBySpider{
             $url = rtrim($this->baseurl, '/') . $url;
         }
         return $url;
+    }
+
+    /**
+     * 小说封面下载
+     */
+    private function download_cover() {
+        $pathinfo = pathinfo($this->datalist['cover']);
+        $filename = md5($pathinfo['filename'] || time());
+        $extension = $pathinfo['extension'] || 'jpg';
+        $fname = $filename . '.' . $extension;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->datalist['cover']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        $file = curl_exec($ch);
+        curl_close($ch);
+        $f = fopen('upload/cover/' . $fname, 'a');
+        fwrite($f, $file);
+        fclose($f);
     }
     //测试
     public static function test() {

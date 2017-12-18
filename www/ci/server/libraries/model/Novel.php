@@ -35,8 +35,8 @@ class Novel {
      * @param $arr
      */
     public function add_novel($arr) {
-        $novel_id = $this->db->insert('novels', $arr);
-        return $novel_id;
+        $r = $this->db->insert('novels', $arr);
+        return $this->db->id();
     }
 
     /**

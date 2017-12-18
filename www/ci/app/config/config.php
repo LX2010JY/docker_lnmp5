@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-//$config['base_url'] = 'http://lx2010jy.cn:8080/';
-$config['base_url'] = 'http://localhost:8080';
+$config['base_url'] = 'http://lx2010jy.cn:8080/';
+//$config['base_url'] = 'http://localhost:8080';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -136,7 +136,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
