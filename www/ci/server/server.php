@@ -12,10 +12,10 @@ define('MODELPATH', LIBRARYPATH.'/model'); //数据库模型操作
 define('SPIDERPATH', LIBRARYPATH . '/spider'); //数据抓取操作
 define('CONFIGPATH', 'config'); //配置文件
 
-require_once "../server/libraries/spider/spider.php";
-require_once "../server/libraries/spider/NewBySpider.php";
-require_once "../vendor/autoload.php";
 require_once "./common.php";
+require_once "../server/libraries/spider/NewBySpider.php";
+require_once "../server/libraries/spider/BqSpider.php";
+require_once "../vendor/autoload.php";
 
 
 
@@ -33,12 +33,10 @@ $server->on('open', function($server, $req) {
 $server->on('message', function($server, $frame) {
     echo "received message: {$frame->data}\n";
     if($frame->data == 'download') {
-        $url = "http://www.81zw.net/book/18173/";
-        $url = "http://www.81zw.net/book/415/";
-        $spider = new NewBySpider($url, $server, $frame);
-        $spider->get_novel_base_data();
+        $url = "https://www.xs.la/78_78031/";
+        $spider = new BqSpider($url, $server, $frame);
         echo "\n开始下载咯!";
-        $spider->crawl_all_chapter();
+        $spider->start_crawl();
     } else {
         $server->push($frame->fd, json_encode(array("hello", "world")));
     }

@@ -2,12 +2,12 @@
 /**
  * Created by PhpStorm.
  * User: lxiao
- * Date: 2017/12/16
- * Time: 上午10:51
+ * Date: 2017/12/18
+ * Time: 下午9:56
+ * 笔趣阁小说网
  */
 use QL\QueryList;
-
-class NewBySpider extends spider{
+class BqSpider extends spider {
     public function __construct($url, $server=null, $frame=null) {
         parent::__construct($url, $server, $frame);
     }
@@ -19,8 +19,8 @@ class NewBySpider extends spider{
             'cover' => array('#fmimg img', 'src'),
             'title' => array('#maininfo #info h1', 'text'),
             'author' => array('#maininfo>#info>p:eq(0)', 'text'),
-            'category' => array('.con_top > a:eq(1)', 'text'),
-            'intro' => array('#intro>p:eq(0)', 'text'),
+//            'category' => array('.con_top > a:eq(1)', 'text'),
+            'intro' => array('#intro', 'text'),
         ),'', 'utf-8');
         $arr = $data->getData(function ($x) {
             return $x;
@@ -32,6 +32,7 @@ class NewBySpider extends spider{
         $arr = $chapter->getData(function ($x) {
             return $x['chapter'];
         });
+        $this->datalist['category'] = '未知';
         $this->datalist['chapter'] = $this->build_url($arr);
         $this->datalist['cover'] = $this->build_url($this->datalist['cover']);
         @$this->datalist['author'] = explode('：', $this->datalist['author'])[1];

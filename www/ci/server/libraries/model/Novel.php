@@ -20,14 +20,13 @@ class Novel {
      * @param string $table
      * @return bool
      */
-    public function check_have_save_data($m, $table = 'novel') {
+    public function check_have_save_data($m, $table = 'novels') {
         $where = [];
         foreach ($m as $k => $v) {
             $k = "{$k}";
             $where[$k] = $v;
         }
-        var_dump($where);
-        $r = $this->db->select($table, ['*'], $where);
+        $r = $this->db->select($table, "*", $where);
         if($r) return true;
         return false;
     }
@@ -45,8 +44,30 @@ class Novel {
      * @return bool|int
      */
     public function add_novel_chapter($arr) {
-        $cp_id = $this->db->insert('novel_chapter', $arr);
+        $r = $this->db->insert('novel_chapter', $arr);
+        $cp_id = $this->db->id();
         return $cp_id;
+    }
+    public function save_category($category, $nid) {
+        $where = array(
+            'c_name' => $category
+        );
+        $r = $this->db->select('category', ['c_id'], $where);
+        if($r) {
+            $this->db->insert('category_novel', array(
+                'c_id' => $r[0]['c_id'],
+                'nid' => $nid
+            ));
+        } else {
+            $this->db->insert('category', array(
+                'c_name' => $category
+            ));
+            $c_id = $this->db->id();
+            $this->db->insert('category_novel', array(
+                'c_id' => $c_id,
+                'nid' => $nid
+            ));
+        }
     }
 
 }
